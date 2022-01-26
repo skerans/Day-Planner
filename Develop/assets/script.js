@@ -20,23 +20,50 @@ let today = moment();
 $("#currentDay").text(today.format("dddd, MMMM Do"));
 
 // set this hour to a variable
-
-let now = today.format("HH");
+let setTime;
+let now = today.hours();
 console.log(now);
-setTime = 18;
+// setTime = 10;
+// console.log(now == setTime);
+
+
 //check this hour to each hour of the day, previous ones are grey, future are green, now is red
 //set click target to setTime variable
-//check if setTime is larger or smaller than now, classList.add(.background-color: red/green/grey)
-function checkTime(setTime) {
-  if(now < setTime) {
-      timeEl.classList.add('past');
-  } else if (now > setTime) {
-    timeEl.classList.add('future');
+//check if setTime is larger or smaller than now, addClass(past/present/future)
+$(".time").each(function (setTime) {
+  if(now > setTime) {
+    $(this).addClass("past");
+    // console.log(setTime);
+  } else if (now < setTime) {
+    $(this).addClass("future");
   } else {
-    timeEl.classList.add('present');
+    $(this).addClass("present");
   }
-}
-checkTime();
+})
+
+
 //set save buttons to each individual input to save text to local storage
+
+$(".save-btn").on('click', function () {
+  task = $(this).siblings('.time').val().trim();
+  time = $(this).siblings('.time').attr("id");
+  console.log(time);
+  console.log(task);
+  if (task != null) {
+  localStorage.setItem(time, task);
+  }
+})
+
 //get saved input from local storage and put on page on page load
+function showItems() {
+for (let i = 0; i < 24; i++) {
+  value = localStorage.getItem('hour-' + i);
+  $('#hour-' + i).val(value);
+}
+}
+showItems()
+
 //make pretty
+
+
+
