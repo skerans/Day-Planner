@@ -23,17 +23,16 @@ $("#currentDay").text(today.format("dddd, MMMM Do"));
 let setTime;
 let now = today.hours();
 console.log(now);
-// setTime = 10;
-// console.log(now == setTime);
 
 
 //check this hour to each hour of the day, previous ones are grey, future are green, now is red
-//set click target to setTime variable
+
 //check if setTime is larger or smaller than now, addClass(past/present/future)
-$(".time").each(function (setTime) {
+$(".time").each(function () {
+  var setTime = parseInt($(this).attr("id").split("-")[1]);
+  console.log(setTime);
   if(now > setTime) {
     $(this).addClass("past");
-    // console.log(setTime);
   } else if (now < setTime) {
     $(this).addClass("future");
   } else {
